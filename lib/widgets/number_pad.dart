@@ -32,9 +32,9 @@ class NumberPad extends StatelessWidget {
                   onPressed: isComplete || sudoku.isGameOver || sudoku.isWon
                       ? null
                       : () => sudoku.placeNumber(
-                            number,
-                            errorLimitEnabled: settings.errorLimitEnabled,
-                          ),
+                          number,
+                          errorLimitEnabled: settings.errorLimitEnabled,
+                        ),
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.zero,
                     backgroundColor: sudoku.highlightedNumber == number
@@ -72,16 +72,14 @@ class NumberPad extends StatelessWidget {
 
         const SizedBox(height: 12),
 
-        // Erase button
+        // Undo button
         SizedBox(
           width: 140,
           height: 44,
           child: OutlinedButton.icon(
-            onPressed: sudoku.isGameOver || sudoku.isWon
-                ? null
-                : () => sudoku.eraseCell(),
-            icon: const Icon(Icons.backspace_outlined, size: 20),
-            label: const Text('Apagar'),
+            onPressed: sudoku.canUndo ? () => sudoku.undo() : null,
+            icon: const Icon(Icons.undo, size: 20),
+            label: const Text('Desfazer'),
             style: OutlinedButton.styleFrom(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),

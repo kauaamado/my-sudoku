@@ -160,15 +160,16 @@ class GamePage extends StatelessWidget {
                 ),
               ),
 
-              const Spacer(),
-
               // Sudoku Grid
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: const SudokuGrid(),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: const SudokuGrid(),
+                  ),
+                ),
               ),
-
-              const Spacer(),
 
               // Number Pad
               const NumberPad(),

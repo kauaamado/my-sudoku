@@ -48,8 +48,8 @@ class SudokuProvider extends ChangeNotifier {
   void startNewGame(Difficulty difficulty) {
     _currentDifficulty = difficulty;
     _board = SudokuBoard(difficulty: difficulty);
-    _playerBoard =
-        _board!.puzzle.map((row) => List<int>.from(row)).toList();
+    _playerBoard = _board!.puzzle.map((row) => List<int>.from(row)).toList();
+    _history.clear();
     _selectedRow = -1;
     _selectedCol = -1;
     _errors = 0;
@@ -88,6 +88,19 @@ class SudokuProvider extends ChangeNotifier {
     if (_isGameOver || _isWon) return false;
     if (_board!.original[_selectedRow][_selectedCol]) return false;
 
+    // Check if same number
+    if (_playerBoard[_selectedRow][_selectedCol] == number) return true;
+
+    // Record history
+    _history.add(
+      Move(
+        row: _selectedRow,
+        col: _selectedCol,
+        oldValue: _playerBoard[_selectedRow][_selectedCol],
+        newValue: number,
+      ),
+    );
+
     final correct = _board!.solution[_selectedRow][_selectedCol] == number;
 
     _playerBoard[_selectedRow][_selectedCol] = number;
@@ -112,9 +125,21 @@ class SudokuProvider extends ChangeNotifier {
   }
 
   void eraseCell() {
+    // Kept for direct erase if needed, but UI will use undo()
     if (_selectedRow < 0 || _selectedCol < 0) return;
     if (_isGameOver || _isWon) return;
     if (_board!.original[_selectedRow][_selectedCol]) return;
+
+    if (_playerBoard[_selectedRow][_selectedCol] == 0) return;
+
+    _history.add(
+      Move(
+        row: _selectedRow,
+        col: _selectedCol,
+        oldValue: _playerBoard[_selectedRow][_selectedCol],
+        newValue: 0,
+      ),
+    );
 
     _playerBoard[_selectedRow][_selectedCol] = 0;
     _highlightedNumber = null;
@@ -165,9 +190,48 @@ class SudokuProvider extends ChangeNotifier {
     }
   }
 
+  // ──────────────────────────────────────────
+  // History / Undo Logic
+  // ──────────────────────────────────────────
+
+  final List<Move> _history = [];
+
+  bool get canUndo => _history.isNotEmpty && !_isGameOver && !_isWon;
+
+  void undo() {
+    if (!canUndo) return;
+
+    final move = _history.removeLast();
+    _playerBoard[move.row][move.col] = move.oldValue;
+    _selectedRow = move.row;
+    _selectedCol = move.col;
+    _highlightedNumber = move.oldValue != 0 ? move.oldValue : null;
+
+    // If undone move caused an error count increment?
+    // We don't decrement errors because user already made the mistake.
+    // Ideally we might want to? Usually Sudoku apps count errors even if undone.
+    // I will keep errors as is.
+
+    notifyListeners();
+  }
+
   @override
   void dispose() {
     _timer?.cancel();
     super.dispose();
   }
+}
+
+class Move {
+  final int row;
+  final int col;
+  final int oldValue;
+  final int newValue;
+
+  Move({
+    required this.row,
+    required this.col,
+    required this.oldValue,
+    required this.newValue,
+  });
 }
