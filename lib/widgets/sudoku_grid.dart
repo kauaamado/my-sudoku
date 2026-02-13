@@ -29,7 +29,12 @@ class SudokuGrid extends StatelessWidget {
                 children: List.generate(9, (col) {
                   return Expanded(
                     child: _buildCell(
-                      context, row, col, sudoku, settings, colorScheme,
+                      context,
+                      row,
+                      col,
+                      sudoku,
+                      settings,
+                      colorScheme,
                     ),
                   );
                 }),
@@ -105,8 +110,7 @@ class SudokuGrid extends StatelessWidget {
               key: ValueKey('${row}_${col}_$value'),
               style: TextStyle(
                 fontSize: 18,
-                fontWeight:
-                    isOriginal ? FontWeight.w800 : FontWeight.w500,
+                fontWeight: isOriginal ? FontWeight.w800 : FontWeight.w800,
                 color: textColor,
               ),
             ),

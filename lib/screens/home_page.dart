@@ -34,11 +34,13 @@ class HomePage extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              colorScheme.primary.withValues(alpha: 0.08),
-              colorScheme.surface,
-              colorScheme.tertiary.withValues(alpha: 0.06),
-            ],
+            colors: theme.brightness == Brightness.dark
+                ? [colorScheme.surface, colorScheme.surface]
+                : [
+                    colorScheme.primary.withValues(alpha: 0.08),
+                    colorScheme.surface,
+                    colorScheme.tertiary.withValues(alpha: 0.06),
+                  ],
           ),
         ),
         child: SafeArea(

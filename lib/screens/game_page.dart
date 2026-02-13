@@ -43,10 +43,12 @@ class GamePage extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              colorScheme.surface,
-              colorScheme.primary.withValues(alpha: 0.04),
-            ],
+            colors: theme.brightness == Brightness.dark
+                ? [colorScheme.surface, colorScheme.surface]
+                : [
+                    colorScheme.surface,
+                    colorScheme.primary.withValues(alpha: 0.04),
+                  ],
           ),
         ),
         child: SafeArea(
@@ -67,8 +69,9 @@ class GamePage extends StatelessWidget {
                         vertical: 6,
                       ),
                       decoration: BoxDecoration(
-                        color: colorScheme.surfaceContainerHighest
-                            .withValues(alpha: 0.6),
+                        color: colorScheme.surfaceContainerHighest.withValues(
+                          alpha: 0.6,
+                        ),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Row(
@@ -100,13 +103,12 @@ class GamePage extends StatelessWidget {
                           return Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 2),
                             child: Icon(
-                              isFilled
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
+                              isFilled ? Icons.favorite : Icons.favorite_border,
                               color: isFilled
                                   ? colorScheme.error
-                                  : colorScheme.onSurface
-                                      .withValues(alpha: 0.3),
+                                  : colorScheme.onSurface.withValues(
+                                      alpha: 0.3,
+                                    ),
                               size: 22,
                             ),
                           );
@@ -120,10 +122,12 @@ class GamePage extends StatelessWidget {
                         ),
                         decoration: BoxDecoration(
                           color: sudoku.errors > 0
-                              ? colorScheme.errorContainer
-                                  .withValues(alpha: 0.5)
-                              : colorScheme.surfaceContainerHighest
-                                  .withValues(alpha: 0.6),
+                              ? colorScheme.errorContainer.withValues(
+                                  alpha: 0.5,
+                                )
+                              : colorScheme.surfaceContainerHighest.withValues(
+                                  alpha: 0.6,
+                                ),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Row(
@@ -133,8 +137,9 @@ class GamePage extends StatelessWidget {
                               size: 16,
                               color: sudoku.errors > 0
                                   ? colorScheme.error
-                                  : colorScheme.onSurface
-                                      .withValues(alpha: 0.6),
+                                  : colorScheme.onSurface.withValues(
+                                      alpha: 0.6,
+                                    ),
                             ),
                             const SizedBox(width: 4),
                             Text(
@@ -143,8 +148,9 @@ class GamePage extends StatelessWidget {
                                 fontWeight: FontWeight.w600,
                                 color: sudoku.errors > 0
                                     ? colorScheme.error
-                                    : colorScheme.onSurface
-                                        .withValues(alpha: 0.6),
+                                    : colorScheme.onSurface.withValues(
+                                        alpha: 0.6,
+                                      ),
                               ),
                             ),
                           ],
@@ -265,11 +271,7 @@ class GamePage extends StatelessWidget {
       context: context,
       barrierDismissible: false,
       builder: (ctx) => AlertDialog(
-        icon: Icon(
-          Icons.emoji_events,
-          size: 48,
-          color: Colors.amber.shade600,
-        ),
+        icon: Icon(Icons.emoji_events, size: 48, color: Colors.amber.shade600),
         title: const Text('Parabéns! 🎉'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
@@ -279,10 +281,9 @@ class GamePage extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Theme.of(context)
-                    .colorScheme
-                    .primaryContainer
-                    .withValues(alpha: 0.5),
+                color: Theme.of(
+                  context,
+                ).colorScheme.primaryContainer.withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Row(
