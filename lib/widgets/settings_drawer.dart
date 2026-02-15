@@ -65,10 +65,7 @@ class SettingsDrawer extends StatelessWidget {
 
             // Error Limit Toggle
             SwitchListTile(
-              secondary: Icon(
-                Icons.favorite,
-                color: colorScheme.error,
-              ),
+              secondary: Icon(Icons.favorite, color: colorScheme.error),
               title: const Text('Limite de Erros'),
               subtitle: const Text('Game over após 3 erros'),
               value: settings.errorLimitEnabled,
@@ -79,10 +76,7 @@ class SettingsDrawer extends StatelessWidget {
 
             // Visual Aid Toggle
             SwitchListTile(
-              secondary: Icon(
-                Icons.grid_on,
-                color: colorScheme.tertiary,
-              ),
+              secondary: Icon(Icons.grid_on, color: colorScheme.tertiary),
               title: const Text('Auxílio Visual'),
               subtitle: const Text('Destaque linha, coluna e bloco'),
               value: settings.visualAidEnabled,
@@ -105,7 +99,7 @@ class SettingsDrawer extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16),
               child: Text(
-                'MY SUDOKU v1.0',
+                'KSudoku v1.0\npor Kauã Amado',
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: colorScheme.onSurface.withValues(alpha: 0.5),
                 ),

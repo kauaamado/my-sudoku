@@ -14,13 +14,13 @@ void main() {
         ChangeNotifierProvider(create: (_) => SettingsProvider()),
         ChangeNotifierProvider(create: (_) => SudokuProvider()),
       ],
-      child: const MySudokuApp(),
+      child: const KSudokuApp(),
     ),
   );
 }
 
-class MySudokuApp extends StatelessWidget {
-  const MySudokuApp({super.key});
+class KSudokuApp extends StatelessWidget {
+  const KSudokuApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class MySudokuApp extends StatelessWidget {
     final seedColor = const Color(0xFF6750A4); // M3 purple
 
     return MaterialApp(
-      title: 'MY SUDOKU',
+      title: 'KSUDOKU',
       debugShowCheckedModeBanner: false,
       themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
       theme: ThemeData(

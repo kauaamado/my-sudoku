@@ -72,7 +72,7 @@ class HomePage extends StatelessWidget {
 
               // Title
               Text(
-                'MY SUDOKU',
+                'KSudoku',
                 style: GoogleFonts.outfit(
                   fontSize: 42,
                   fontWeight: FontWeight.w900,

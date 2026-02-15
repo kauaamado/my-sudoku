@@ -1,4 +1,4 @@
-# my_sudoku
+# ksudoku
 
 A new Flutter project.
 
