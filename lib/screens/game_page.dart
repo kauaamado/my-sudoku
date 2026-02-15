@@ -6,8 +6,15 @@ import '../providers/settings_provider.dart';
 import '../widgets/sudoku_grid.dart';
 import '../widgets/number_pad.dart';
 
-class GamePage extends StatelessWidget {
+class GamePage extends StatefulWidget {
   const GamePage({super.key});
+
+  @override
+  State<GamePage> createState() => _GamePageState();
+}
+
+class _GamePageState extends State<GamePage> {
+  bool _isDialogShowing = false;
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +25,18 @@ class GamePage extends StatelessWidget {
 
     // Show dialogs after the build phase
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (sudoku.isWon) {
-        _showWinDialog(context, sudoku, settings);
-      } else if (sudoku.isGameOver) {
-        _showGameOverDialog(context, sudoku, settings);
+      if (!mounted) return;
+
+      if (!_isDialogShowing) {
+        if (sudoku.isWon) {
+          _isDialogShowing =
+              true; // Set immediately before calling the function
+          _showWinDialog(context, sudoku, settings);
+        } else if (sudoku.isGameOver) {
+          _isDialogShowing =
+              true; // Set immediately before calling the function
+          _showGameOverDialog(context, sudoku, settings);
+        }
       }
     });
 
@@ -255,7 +270,7 @@ class GamePage extends StatelessWidget {
     SudokuProvider sudoku,
     SettingsProvider settings,
   ) {
-    // Avoid showing the dialog multiple times
+    // Avoid showing the dialog multiple times if game not won
     if (!sudoku.isWon) return;
 
     // Record stats
@@ -323,8 +338,8 @@ class GamePage extends StatelessWidget {
         actions: [
           FilledButton.icon(
             onPressed: () {
-              Navigator.pop(ctx);
-              Navigator.pop(context);
+              Navigator.pop(ctx); // Close dialog first
+              Navigator.pop(context); // Then go home
             },
             icon: const Icon(Icons.home),
             label: const Text('INÍCIO'),
@@ -369,6 +384,7 @@ class GamePage extends StatelessWidget {
           FilledButton.icon(
             onPressed: () {
               Navigator.pop(ctx);
+              if (mounted) setState(() => _isDialogShowing = false);
               sudoku.startNewGame(sudoku.currentDifficulty!);
             },
             icon: const Icon(Icons.refresh),
