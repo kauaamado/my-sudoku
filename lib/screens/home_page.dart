@@ -96,7 +96,7 @@ class HomePage extends StatelessWidget {
               // Difficulty Buttons
               _DifficultyButton(
                 label: 'FÁCIL',
-                subtitle: '~30 casas vazias',
+                subtitle: 'Cerca de 30 casas vazias',
                 icon: Icons.sentiment_satisfied_alt,
                 color: Colors.green,
                 onTap: () => _startGame(context, Difficulty.easy),
@@ -104,7 +104,7 @@ class HomePage extends StatelessWidget {
               const SizedBox(height: 16),
               _DifficultyButton(
                 label: 'NORMAL',
-                subtitle: '~40 casas vazias',
+                subtitle: 'Cerca de 40 casas vazias',
                 icon: Icons.sentiment_neutral,
                 color: Colors.orange,
                 onTap: () => _startGame(context, Difficulty.normal),
@@ -112,7 +112,7 @@ class HomePage extends StatelessWidget {
               const SizedBox(height: 16),
               _DifficultyButton(
                 label: 'DIFÍCIL',
-                subtitle: '~50 casas vazias',
+                subtitle: 'Cerca de 50 casas vazias',
                 icon: Icons.sentiment_very_dissatisfied,
                 color: Colors.red,
                 onTap: () => _startGame(context, Difficulty.hard),
