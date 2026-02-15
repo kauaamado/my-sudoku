@@ -29,7 +29,7 @@ class KSudokuApp extends StatelessWidget {
     final seedColor = const Color(0xFF6750A4); // M3 purple
 
     return MaterialApp(
-      title: 'KSUDOKU',
+      title: 'KSudoku',
       debugShowCheckedModeBanner: false,
       themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
       theme: ThemeData(
